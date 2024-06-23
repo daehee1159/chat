@@ -6,7 +6,14 @@ server:
             enabled: true
             force: true
 
+mybatis:
+    mapper-locations: classpathLmapper/**.xml
+    configuration:
+        map-underscore-to-camel-case: true
+
 spring:
+    profiles:
+        active: local
     devtools:
         livereload:
             enabled: true
@@ -16,3 +23,13 @@ spring:
         cache: false
         template-loader-path: classpath:/templates/
         suffix: .ftl
+    datasource:
+        hikari:
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            #            jdbc-url: jdbc:mysql://db-nogari.ctlzzovwnlu2.ap-northeast-2.rds.amazonaws.com:3306/member?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true
+            jdbc-url: jdbc:mysql://localhost:3306/chat?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true
+            username: root
+            #            password: msm210601
+            password: eogml1159@
+            connection-test-query: SELECT NOW() FROM dual
+            max-lifetime: 580000

@@ -30,7 +30,9 @@ public class ChatRoomController {
 	@GetMapping("/rooms")
 	@ResponseBody
 	public List<ChatRoom> room() {
-		return chatRoomRepository.findAllRoom();
+		List<ChatRoom> chatRooms = chatRoomRepository.findAllRoom();
+		chatRooms.stream().forEach(room -> room.setUserCount(chatRoomRepository.getUserCount(room.getRoomId())));
+		return chatRooms;
 	}
 
 	// 채팅방 생성
@@ -52,5 +54,12 @@ public class ChatRoomController {
 	@ResponseBody
 	public ChatRoom roomInfo(@PathVariable String roomId) {
 		return chatRoomRepository.findRoomById(roomId);
+	}
+
+	@PostMapping("/room/exit")
+	public boolean exitRoom(@RequestBody ChatRoom chatRoom) {
+		System.out.println("room id: " + chatRoom.getRoomId());
+		System.out.println("username: " + chatRoom.getName());
+		return true;
 	}
 }
